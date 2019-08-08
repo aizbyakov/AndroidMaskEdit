@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaskEdit">
+        <attr name="key_delimiter" format="string" />
+        <attr name="key_group_length" format="integer" />
+    </declare-styleable>
+</resources>

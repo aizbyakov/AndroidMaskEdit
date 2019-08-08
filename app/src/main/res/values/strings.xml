@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EditKey</string>
+    <string name="regular_edittext_hint">Regular EditText</string>
+    <string name="regular_edittext_hint_with_digits_filter">Regular EditText with digits filter</string>
+    <string name="editkey_hint_1">EditKey Default (4, \'-\')</string>
+    <string name="editkey_hint_2">EditKey (0, \'-\')</string>
+    <string name="editkey_hint_3">EditKey (2, \'-\')</string>
+    <string name="editkey_hint_4">EditKey (3, \'+\')</string>
+</resources>
