@@ -89,6 +89,7 @@ public class MaskEdit extends EditText {
         private final String TAG = DelimiterInjector.class.getName();
 
         private boolean isModificationInProgress = false;
+        private boolean isLengthExcededMaxLength = true;
         private int backspacePressedBeforeDelimiterAt;
 
         private char delimiter;
@@ -130,6 +131,8 @@ public class MaskEdit extends EditText {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            isLengthExcededMaxLength = false;
+
             if (isModificationInProgress)
                 return;
 
@@ -175,7 +178,20 @@ public class MaskEdit extends EditText {
 
             for (int i = s.length() - 1; i > 0; i--) {
                 if (groupLength > 0 && i % groupLength == 0) {
+                    isLengthExcededMaxLength = true;
+
                     s.insert(i, String.valueOf(delimiter));
+
+                    //There is no ability to get current maxLength. If it is exceeded, beforeTextChanged and onTextChanged are not invoked.
+                    //If after inserting the onTextChanged has not been called, we have to reduce length until delimiter is inserted successfully.
+                    while(isLengthExcededMaxLength) {
+                        s.replace(s.length() - 1, s.length(),"");
+                        s.insert(i, String.valueOf(delimiter));
+
+                        //Since we deleted last character, it is possible the delimiter became the last one. We have to remove it.
+                        if (s.charAt(s.length() - 1) == delimiter)
+                            s.replace(s.length() - 1, s.length(),"");
+                    }
                 }
             }
         }

@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     }
 
     private void createUi() {
-        MaskEdit maskEdit1 = findViewById(R.id.editKey1);
+        MaskEdit maskEdit1 = findViewById(R.id.maskEdit1);
         maskEdit1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

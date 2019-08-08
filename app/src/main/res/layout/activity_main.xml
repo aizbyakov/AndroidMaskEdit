@@ -9,46 +9,58 @@
     tools:context="com.ai.android.maskedit.app.MainActivity">
 
     <com.ai.android.maskedit.MaskEdit
-        android:id="@+id/editKey1"
+        android:id="@+id/maskEdit1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
         android:inputType="text"
-        android:hint="@string/editkey_hint_1" />
+        android:hint="@string/maskedit_hint_1" />
 
     <com.ai.android.maskedit.MaskEdit
-        android:id="@+id/editKey2"
+        android:id="@+id/maskEdit2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
-        android:hint="@string/editkey_hint_2"
+        android:hint="@string/maskedit_hint_2"
         android:inputType="text"
         app:key_delimiter="-"
         app:key_group_length="0" />
 
     <com.ai.android.maskedit.MaskEdit
-        android:id="@+id/editKey3"
+        android:id="@+id/maskEdit3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
-        android:hint="@string/editkey_hint_3"
+        android:hint="@string/maskedit_hint_3"
         android:inputType="text"
         app:key_delimiter="-"
         app:key_group_length="2" />
 
     <com.ai.android.maskedit.MaskEdit
-        android:id="@+id/editKey4"
+        android:id="@+id/maskEdit4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyz+"
-        android:hint="@string/editkey_hint_4"
+        android:hint="@string/maskedit_hint_4"
         android:inputType="text"
         app:key_delimiter="+"
         app:key_group_length="3" />
+
+    <com.ai.android.maskedit.MaskEdit
+        android:id="@+id/maskEdit5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
+        android:hint="@string/maskedit_hint_5"
+        android:inputType="text"
+        android:maxLength="10"
+        app:key_delimiter="-"
+        app:key_group_length="4" />
 
     <EditText
         android:id="@+id/editText"

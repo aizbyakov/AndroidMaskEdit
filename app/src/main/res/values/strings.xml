@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">EditKey</string>
+    <string name="app_name">MaskEdit</string>
     <string name="regular_edittext_hint">Regular EditText</string>
     <string name="regular_edittext_hint_with_digits_filter">Regular EditText with digits filter</string>
-    <string name="editkey_hint_1">EditKey Default (4, \'-\')</string>
-    <string name="editkey_hint_2">EditKey (0, \'-\')</string>
-    <string name="editkey_hint_3">EditKey (2, \'-\')</string>
-    <string name="editkey_hint_4">EditKey (3, \'+\')</string>
+    <string name="maskedit_hint_1">MaskEdit Default (4, \'-\')</string>
+    <string name="maskedit_hint_2">MaskEdit (0, \'-\')</string>
+    <string name="maskedit_hint_3">MaskEdit (2, \'-\')</string>
+    <string name="maskedit_hint_4">MaskEdit (3, \'+\')</string>
+    <string name="maskedit_hint_5">MaskEdit (4, \'-\', max = 10)</string>
 </resources>
