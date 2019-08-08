@@ -1,4 +1,4 @@
-package com.android.aizbiakov.maskedit.editkey;
+package com.ai.android.maskedit.editkey;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

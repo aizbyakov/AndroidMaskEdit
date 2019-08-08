@@ -1,4 +1,4 @@
-package com.android.aizbiakov.maskedit.app;
+package com.ai.android.maskedit.app;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,8 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
-import com.android.aizbiakov.maskedit.editkey.BuildConfig;
-import com.android.aizbiakov.maskedit.MaskEdit;
+import com.ai.android.maskedit.MaskEdit;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getName();

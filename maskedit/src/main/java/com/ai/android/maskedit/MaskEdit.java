@@ -1,4 +1,4 @@
-package com.android.aizbiakov.maskedit;
+package com.ai.android.maskedit;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,9 +7,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.EditText;
-
-import com.android.aizbiakov.maskedit.editkey.BuildConfig;
-import com.android.aizbiakov.maskedit.editkey.R;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ android {
     compileSdkVersion PRJ_COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId "com.andrei.izbiakov.maskedit.app"
+        applicationId "com.ai.android.maskedit.app"
         minSdkVersion PRJ_MIN_SDK_VERSION
         targetSdkVersion PRJ_TARGET_SDK_VERSION
         versionCode PRJ_VERSION_CODE

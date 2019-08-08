@@ -1,4 +1,4 @@
-package com.android.aizbiakov.maskedit.app;
+package com.ai.android.maskedit.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.android.aizbiakov.maskedit.app;
+package com.ai.android.maskedit;
 
 import org.junit.Test;
 
