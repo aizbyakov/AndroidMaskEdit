@@ -22,7 +22,10 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+task cleanArtifacts(type: Delete) {
+    delete fileTree(dir: "$rootDir/artefacts" , include: '**/*.aar')
+}
+task clean(type: Delete, dependsOn: cleanArtifacts) {
     delete rootProject.buildDir
 }
 
@@ -32,4 +35,7 @@ ext {
     PRJ_TARGET_SDK_VERSION = 28
     PRJ_VERSION_CODE = 2
     PRJ_VERSION_NAME = '1.0.0.1'
+
+    JAVA_SRC_COMPATIBILITY = JavaVersion.VERSION_1_8
+    JAVA_TARGET_COMPATIBILITY = JavaVersion.VERSION_1_8
 }

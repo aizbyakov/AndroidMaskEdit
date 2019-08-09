@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JAVA_SRC_COMPATIBILITY
+        targetCompatibility JAVA_TARGET_COMPATIBILITY
+    }
 }
 
 dependencies {
@@ -28,3 +33,27 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+task cleanArtifact(type: Delete) {
+    delete fileTree(dir: "$rootDir/artefacts" , include: '**/ai-*.aar')
+}
+
+task copyArtifact(type: Copy, dependsOn: cleanArtifact) {
+    def sourceRoot = "$buildDir/outputs/aar/"
+    def targetRoot = "$rootDir/artefacts/"
+
+    from(sourceRoot)
+    into(targetRoot)
+    include('*.aar')
+
+    doFirst{
+        println "SOURCE: $sourceRoot"
+        println "TARGET: $targetRoot"
+    }
+
+    eachFile {
+        println "FILE: $it.relativeSourcePath -> $it.relativePath"
+    }
+}
+
+build.finalizedBy(copyArtifact)
