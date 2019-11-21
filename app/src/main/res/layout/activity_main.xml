@@ -60,6 +60,50 @@
         android:inputType="text"
         android:maxLength="10"
         app:key_delimiter="-"
+        app:key_show_delimiter_before_next_char="true"
+        app:key_remove_delimiter_in_last_position="true"
+        app:key_group_length="4" />
+
+    <com.ai.android.maskedit.MaskEdit
+        android:id="@+id/maskEdit6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
+        android:hint="@string/maskedit_hint_6"
+        android:inputType="text"
+        android:maxLength="10"
+        app:key_delimiter="-"
+        app:key_show_delimiter_before_next_char="false"
+        app:key_remove_delimiter_in_last_position="true"
+        app:key_group_length="4" />
+
+    <com.ai.android.maskedit.MaskEdit
+        android:id="@+id/maskEdit7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
+        android:hint="@string/maskedit_hint_7"
+        android:inputType="text"
+        android:maxLength="10"
+        app:key_delimiter="-"
+        app:key_show_delimiter_before_next_char="false"
+        app:key_remove_delimiter_in_last_position="false"
+        app:key_group_length="4" />
+
+    <com.ai.android.maskedit.MaskEdit
+        android:id="@+id/maskEdit8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz-"
+        android:hint="@string/maskedit_hint_8"
+        android:inputType="text"
+        android:maxLength="10"
+        app:key_delimiter="-"
+        app:key_show_delimiter_before_next_char="true"
+        app:key_remove_delimiter_in_last_position="false"
         app:key_group_length="4" />
 
     <EditText

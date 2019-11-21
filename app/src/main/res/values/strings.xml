@@ -6,5 +6,8 @@
     <string name="maskedit_hint_2">MaskEdit (0, \'-\')</string>
     <string name="maskedit_hint_3">MaskEdit (2, \'-\')</string>
     <string name="maskedit_hint_4">MaskEdit (3, \'+\')</string>
-    <string name="maskedit_hint_5">MaskEdit (4, \'-\', max = 10)</string>
+    <string name="maskedit_hint_5">MaskEdit (4, \'-\', max = 10) (bnc=true; rdlp=true)</string>
+    <string name="maskedit_hint_6">MaskEdit (4, \'-\', max = 10) (bnc=false; rdlp=true)</string>
+    <string name="maskedit_hint_7">MaskEdit (4, \'-\', max = 10) (bnc=false; rdlp=false)</string>
+    <string name="maskedit_hint_8">MaskEdit (4, \'-\', max = 10) (bnc=true; rdlp=false)</string>
 </resources>

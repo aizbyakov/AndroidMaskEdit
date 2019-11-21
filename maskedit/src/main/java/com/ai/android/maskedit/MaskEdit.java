@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class MaskEdit extends EditText {
     private static final String DEFAULT_DELIMITER = "-";
     private static final int DEFAULT_GROUP_LENGTH = 4;
+    private static final boolean DEFAULT_SHOW_DELIMITER_BEFORE_NEXT_CHARACTER = true;
+    private static final boolean DEFAULT_REMOVE_DELIMITER_IN_LAST_POSITION = true;
 
     private ArrayList<TextWatcher> textWatchers;
 
@@ -44,6 +46,9 @@ public class MaskEdit extends EditText {
     protected void initDelimiterInjectorTextWatcher(AttributeSet attributeSet) {
         char delimiter = DEFAULT_DELIMITER.charAt(0);
         int groupLength = DEFAULT_GROUP_LENGTH;
+        boolean showDelimiterBeforeNextCharacter = DEFAULT_SHOW_DELIMITER_BEFORE_NEXT_CHARACTER;
+        boolean removeDelimiterInLastPosition = DEFAULT_REMOVE_DELIMITER_IN_LAST_POSITION;
+
 
         if (attributeSet != null) {
             TypedArray attrs = getContext().getTheme().obtainStyledAttributes(attributeSet, R.styleable.MaskEdit, 0, 0);
@@ -58,12 +63,14 @@ public class MaskEdit extends EditText {
                 }
 
                 groupLength = attrs.getInt(R.styleable.MaskEdit_key_group_length, DEFAULT_GROUP_LENGTH);
+                showDelimiterBeforeNextCharacter = attrs.getBoolean(R.styleable.MaskEdit_key_show_delimiter_before_next_char, DEFAULT_SHOW_DELIMITER_BEFORE_NEXT_CHARACTER);
+                removeDelimiterInLastPosition = attrs.getBoolean(R.styleable.MaskEdit_key_remove_delimiter_in_last_position, DEFAULT_REMOVE_DELIMITER_IN_LAST_POSITION);
             } finally {
                 attrs.recycle();
             }
         }
 
-        addTextChangedListener(new DelimiterInjector(delimiter, groupLength));
+        addTextChangedListener(new DelimiterInjector(delimiter, groupLength, showDelimiterBeforeNextCharacter, removeDelimiterInLastPosition));
     }
 
     @Override
@@ -88,21 +95,30 @@ public class MaskEdit extends EditText {
     private class DelimiterInjector implements TextWatcher {
         private final String TAG = DelimiterInjector.class.getName();
 
+        private static final String TEST_CHAR_AS_STRING = "a";
+        private static final char MIN_CHAR = ' ';
+
+        private boolean showDelimiterBeforeNextCharacter;
+        private boolean removeDelimiterInLastPosition;
         private boolean isModificationInProgress = false;
-        private boolean isLengthExcededMaxLength = true;
+        private boolean isLengthExceedMaxLength = true;
         private int backspacePressedBeforeDelimiterAt;
 
         private char delimiter;
+        private String delimiterAsString;
         private int groupLength;
 
-        DelimiterInjector(char delimiter, int groupLength) {
+        DelimiterInjector(char delimiter, int groupLength, boolean showDelimiterBeforeNextCharacter, boolean removeDelimiterInLastPosition) {
             if (groupLength < 0)
                 throw new InvalidParameterException("Group length must be >= 0");
 
-            if (delimiter <= ' ')
+            if (delimiter <= MIN_CHAR)
                 throw new InvalidParameterException("Delimiter must be alphabetic symbol");
 
+            this.showDelimiterBeforeNextCharacter = showDelimiterBeforeNextCharacter;
+            this.removeDelimiterInLastPosition = removeDelimiterInLastPosition;
             this.delimiter = delimiter;
+            this.delimiterAsString = String.valueOf(this.delimiter);
             this.groupLength = groupLength;
 
             if (BuildConfig.DEBUG)
@@ -131,7 +147,7 @@ public class MaskEdit extends EditText {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            isLengthExcededMaxLength = false;
+            isLengthExceedMaxLength = false;
 
             if (isModificationInProgress)
                 return;
@@ -176,23 +192,34 @@ public class MaskEdit extends EditText {
                     s.replace(i, i + 1, "");
             }
 
-            for (int i = s.length() - 1; i > 0; i--) {
-                if (groupLength > 0 && i % groupLength == 0) {
-                    isLengthExcededMaxLength = true;
+            if (groupLength < 1)
+                return;
 
-                    s.insert(i, String.valueOf(delimiter));
+            int maxDelimiterPosition = s.length() - (showDelimiterBeforeNextCharacter ? 1 : 0);
+
+            for (int i = maxDelimiterPosition; i > 0; i--) {
+                if (i % groupLength == 0) {
+                    isLengthExceedMaxLength = true;
+
+                    s.insert(i, delimiterAsString);
 
                     //There is no ability to get current maxLength. If it is exceeded, beforeTextChanged and onTextChanged are not invoked.
                     //If after inserting the onTextChanged has not been called, we have to reduce length until delimiter is inserted successfully.
-                    while(isLengthExcededMaxLength) {
+                    while(isLengthExceedMaxLength) {
                         s.replace(s.length() - 1, s.length(),"");
-                        s.insert(i, String.valueOf(delimiter));
-
-                        //Since we deleted last character, it is possible the delimiter became the last one. We have to remove it.
-                        if (s.charAt(s.length() - 1) == delimiter)
-                            s.replace(s.length() - 1, s.length(),"");
+                        s.insert(i, delimiterAsString);
                     }
                 }
+            }
+
+            //There is no ability to get current maxLength. If it is exceeded, beforeTextChanged and onTextChanged are not invoked.
+            //If after inserting the onTextChanged has not been called, we have to reduce length until delimiter is inserted successfully.
+            //So we need to test if it is possible to insert one symbol after last delimiter in case we show it after a char is added and we
+            //need to remove last delimiter.
+            if (removeDelimiterInLastPosition && s.charAt(s.length() - 1) == delimiter) {
+                s.append(TEST_CHAR_AS_STRING);
+                //If max length exceed test character is not added, so the last delimiter is removed, if max length is not exceed test character is removed.
+                s.replace(s.length() - 1, s.length(), "");
             }
         }
     }
