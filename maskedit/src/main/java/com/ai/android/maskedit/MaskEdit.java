@@ -216,7 +216,7 @@ public class MaskEdit extends EditText {
             //If after inserting the onTextChanged has not been called, we have to reduce length until delimiter is inserted successfully.
             //So we need to test if it is possible to insert one symbol after last delimiter in case we show it after a char is added and we
             //need to remove last delimiter.
-            if (removeDelimiterInLastPosition && s.charAt(s.length() - 1) == delimiter) {
+            if (removeDelimiterInLastPosition && s.length() > 0 && s.charAt(s.length() - 1) == delimiter) {
                 s.append(TEST_CHAR_AS_STRING);
                 //If max length exceed test character is not added, so the last delimiter is removed, if max length is not exceed test character is removed.
                 s.replace(s.length() - 1, s.length(), "");
