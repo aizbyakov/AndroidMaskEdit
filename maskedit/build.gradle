@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+def libName = 'ai-maskedit'
+
 android {
     compileSdkVersion PRJ_COMPILE_SDK_VERSION
 
@@ -8,9 +10,9 @@ android {
         targetSdkVersion PRJ_TARGET_SDK_VERSION
         versionCode PRJ_VERSION_CODE
         versionName PRJ_VERSION_NAME
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "$libName-$versionName"
 
-        archivesBaseName = "ai-maskedit-$versionName"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -29,31 +31,33 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
-task cleanArtifact(type: Delete) {
-    delete fileTree(dir: "$rootDir/artefacts" , include: '**/ai-*.aar')
+task cleanArtifacts(type: Delete) {
+    delete "$ARTIFACTS_DIRECTORY/${libName}.aar"
 }
 
-task copyArtifact(type: Copy, dependsOn: cleanArtifact) {
-    def sourceRoot = "$buildDir/outputs/aar/"
-    def targetRoot = "$rootDir/artefacts/"
-
-    from(sourceRoot)
-    into(targetRoot)
-    include('*.aar')
+task copyArtifacts(dependsOn: cleanArtifacts) {
+    def sourceRoot = "$buildDir/outputs/aar"
 
     doFirst{
         println "SOURCE: $sourceRoot"
-        println "TARGET: $targetRoot"
-    }
+        println "TARGET: $ARTIFACTS_DIRECTORY"
+        println ""
 
-    eachFile {
-        println "FILE: $it.relativeSourcePath -> $it.relativePath"
+        copy {
+            from(fileTree(sourceRoot).files)
+            into(ARTIFACTS_DIRECTORY)
+            include("*.aar")
+
+            eachFile {
+                println "FILE: $it.relativeSourcePath -> $it.relativePath"
+            }
+        }
     }
 }
 
-build.finalizedBy(copyArtifact)
+build.finalizedBy(copyArtifacts)

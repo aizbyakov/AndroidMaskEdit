@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidMaskEdit.iml" filepath="$PROJECT_DIR$/AndroidMaskEdit.iml" group="AndroidMaskEdit" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidMaskEdit/app" />
+      <module fileurl="file://$PROJECT_DIR$/maskedit/maskedit.iml" filepath="$PROJECT_DIR$/maskedit/maskedit.iml" group="AndroidMaskEdit/maskedit" />
+    </modules>
+  </component>
+</project>
